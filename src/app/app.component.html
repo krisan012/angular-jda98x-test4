@@ -1,0 +1,26 @@
+<div class="panel">
+  <div>Total Cards: {{ cards.length }}</div>
+
+  <div>
+    <label for="sort">Sory By:</label>
+    <select id="sort" [(ngModel)]="sort" (change)="sortCards($event)">
+      <option value="name">Name (ASC)</option>
+      <option value="age">Age (ASC)</option>
+    </select>
+  </div>
+</div>
+
+<div *ngFor="let card of cards; let i = index" class="card">
+  <div class="card-content">
+    <h2 class="card-title">Name: {{ card.name }} </h2>
+    <p class="card-info">Email: {{ card.email }}</p>
+    <p class="card-info">Age: {{ card.age }}</p>
+    <p class="card-info">Gender: {{ card.gender }}</p>
+    <p class="card-info">Telephone: {{ card.telephone }}</p>
+  </div>
+
+  <button (click)="duplicateCard(card)">Duplicate</button>
+  <br>
+  <br>
+  <button (click)="deleteCard(i)">Delete</button>
+</div>
