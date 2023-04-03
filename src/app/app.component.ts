@@ -17,8 +17,7 @@ export class AppComponent {
   constructor(private http: HttpClient) {}
 
   duplicateCard(card: any): void {
-    console.log('duplicate');
-    const newCard = { ...card, duplicates: 0 };
+    const newCard = { ...card, duplicates: 0, origin: this.cards.indexOf(card) };
     newCard.name = `${card.name}#${card.duplicates + 1}`; //new name of duplicated card
     card.duplicates++; //increase duplicate count
 
@@ -43,7 +42,24 @@ export class AppComponent {
   }
 
   deleteCard(index: number): void {
-    console.log(index)
+    const card = this.cards[index];
+    if(card.origin !== undefined)
+    {
+      this.cards[card.origin].duplicates--;
+
+      const baseName = this.cards[card.origin].name.split('#')[0]; // after deleted get the number
+      let duplicateCounter = 1; //new counter
+
+      //loop cards to change the count of card if the lower card # is deleted
+      this.cards.forEach((c, i) => {
+        if(c.origin === card.origin && i !== index)
+        {
+          c.name = `${baseName}#${duplicateCounter}`;
+          duplicateCounter++;
+        }
+      })
+    }
+
     this.cards.splice(index, 1);
   }
 
