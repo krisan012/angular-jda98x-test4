@@ -3,7 +3,7 @@
 
   <div>
     <label for="sort">Sory By:</label>
-    <select id="sort" [(ngModel)]="sort" (change)="sortCards($event)">
+    <select id="sort" [(ngModel)]="sort" (change)="sortCards()">
       <option value="name">Name (ASC)</option>
       <option value="age">Age (ASC)</option>
     </select>

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   cards: any[] = [];
-  sort: '';
+  sort: string = '';
 
   ngOnInit(){
     this.fetchData();
@@ -47,7 +47,13 @@ export class AppComponent {
     this.cards.splice(index, 1);
   }
 
-  sortCards(event: Event): void {
-    console.log(this.sort)
+  sortCards(): void {
+    if(this.sort === 'name')
+    {
+      this.cards.sort((a, b) => a.name.localeCompare(b.name));
+    } else if(this.sort === 'age')
+    {
+      this.cards.sort((a,b ) => a.age - b.age);
+    }
   }
 }
